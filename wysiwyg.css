@@ -1,0 +1,14 @@
+person {
+  display: block;
+}
+.person__container:nth-of-type(2n+1) {
+background-color: lightblue;
+}
+
+.person__container:nth-of-type(2n) {
+ background-color: lightyellow;
+}
+
+.border {
+  border: dotted blue;
+}
