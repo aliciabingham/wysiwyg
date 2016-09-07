@@ -44,14 +44,16 @@ var famousPeople = [
 var container = document.getElementById("container");
 var person = document.getElementById("person");
 var input = document.getElementById("input");
+var editedBio;
 container.innerHTML = "";
+input.addEventListener('keyup', inputKeyUp)
 
 var counter = 0;
 var outputEl = document.getElementById("container");
 for (; counter < famousPeople.length; counter++) {
   var x = "<div>" + famousPeople[counter].title +"</div>";
   x += "<div>" + famousPeople[counter].name + "</div>";
-  x += "<div>" + famousPeople[counter].bio + "</div>";
+  x += "<div class='bio' id='person_" + counter +"'>" + famousPeople[counter].bio + "</div>";
   x += "<img>" + famousPeople[counter].image + "</img>";
   x += "<div>" + "Birth: " + famousPeople[counter].lifespan.birth + "</div>";
   x += "<div>" + "Death: " + famousPeople[counter].lifespan.death + "</div>";
@@ -59,41 +61,26 @@ for (; counter < famousPeople.length; counter++) {
   outputEl.innerHTML += `<person class="person__container" id="person--${counter}">${x}</person>`;
 }
 
-// Now containerEl will have elements in it
 var containerEl = document.getElementsByClassName("person__container");
 
-// Event listeners are created
 for (var i = 0; i < containerEl.length; i++) {
   containerEl[i].addEventListener("click", function (event) {
     event.currentTarget.classList.toggle("border");
     input.focus();
+    input.value = event.currentTarget.getElementsByClassName('bio')[0].innerHTML;
+    editedBio = event.currentTarget.getElementsByClassName('bio')[0].id
   });
 };
 
+input.addEventListener('keyup', inputFunction)
 
+function inputFunction() {
+  document.getElementById(editedBio).innerHTML = input.value;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function inputKeyUp(e) {
+    e.which = e.which || e.keyCode;
+    if(e.which == 13) {
+        input.value = "";
+    }
+}
